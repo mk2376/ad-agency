@@ -46,6 +46,7 @@ later be given to ad clients and AI models that classified the ad in order to tr
 ```
 Figure 1: Application Design Diagram
 ```
+![Application Design Diagram](assets/img/decentralized_advertising_agency.drawio.png)
 ### 2.1 Concept of a marketplace
 
 The marketplace would be primarily designed for website owners. They will be able to select/install ad layouts,
@@ -78,16 +79,19 @@ proper classification abilities.
 ```
 Figure 2: Landing page
 ```
+![Landing Page Wireframe](assets/img/landing_page.JPG)
 ```
 Figure 3: Submitting an advertisement
 ```
-
+![Advertisement Submission Wireframe](assets/img/submit_advertisement.JPG)
 ```
 Figure 4: Status of an advertisement
 ```
+![Advertisement Status Wireframe](assets/img/ad_status.png)
 ```
 Figure 5: Webpage overview
 ```
+![Webpage Overview Wireframe](assets/img/webpage_overview.png)
 ## 4 Key software components and tasks for implementation
 
 ### 4.1 Key components
@@ -264,9 +268,7 @@ These are the main functional requirements:
     misleading.
 - All participants (except website visitors) should be easily identifiable.
 
-```
 These are the main non-functional requirements:
-```
 - Ads should load within 0.5 seconds.
 - Ads should be relevant to the website.
 - Ads should be appropriate.
@@ -284,9 +286,8 @@ These are our hard (must have) requirements:
 - Payment system for the advertising client.
 - Identification system for advertising clients and website providers (IDs).
 
-```
 These are our soft (nice to have) requirements:
-```
+
 - User is able to flag the ad as inappropriate or misleading.
 - All ad slots on the website should be populated.
 - Ad requests of timespan and audience will be fully fulfilled.
@@ -343,6 +344,7 @@ will be pleasant for all parties involved.
 ```
 Figure 6: Business Model Canvas Table
 ```
+![Business Model Canvas Table](assets/img/bmc_table.drawio.png)
 ### 5.4 QA
 
 5.4.1 Key Partners
