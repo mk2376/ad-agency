@@ -1,6 +1,7 @@
 # Web3 Advertising Agency
 Web3 Advertising Agency is a project with a sole purpose to create a decentralized advertising platform for Web3.
 
+Whitepaper is available [here](WHITEPAPER.md).
 
 ## Table of Contents
 1. [Setup](#setup)
