@@ -30,3 +30,8 @@ TensorFlow is an open-source software library developed by Google for numerical 
 The source code and documentation model is available in **ai_model** folder.
 
 Click [here](ai_model/README.md) to read more about the AI model.
+
+## Decentralized application
+The source code for the decentralized application is available in the **dapp** folder.
+
+Click [here](dapp/README.md) to read more about the decentralized application.
