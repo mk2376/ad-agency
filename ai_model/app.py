@@ -1,11 +1,8 @@
 # Standard
-import numpy as np
-import pandas as pd
-import os
-import werkzeug
+import requests
 
 # Flask utils
-from flask import Flask, request, jsonify
+from flask import Flask, request, Response, json
 
 # Model
 from ai_model import NSFWClassifier
@@ -24,14 +21,15 @@ def get_predictions(image_path):
     nsfw_predictions = nsfw_classifier.nsfw_detection(image_path)
 
     unsafe_score = nude_value[image_path]['unsafe']
-    unsafe_score = int(unsafe_score * 100)
+    unsafe_score = int(unsafe_score)
 
     sexy_score = nude_value[image_path]['sexy']
-    sexy_score = int(sexy_score * 100)
+    sexy_score = int(sexy_score)
 
     predictions ={
         'nude_score': unsafe_score,
         'sexy_score': sexy_score,
+        #'drugs_score': int(nsfw_predictions[0][0] * 100),
         'violence_score': int(nsfw_predictions[0][1] * 100),
         'natural_score': int(nsfw_predictions[0][2] * 100)
     }
@@ -39,31 +37,43 @@ def get_predictions(image_path):
     return predictions
 
 
-@app.route("/", methods=['POST', 'GET'])
-def hello():
-    return 'Hello World!'
-
-
-@app.route("/predict", methods=['POST', 'GET'])
+@app.route("/predict", methods=['POST'])
 def uploaded_images():
-    saving_folder = "./"
-    img_files_ids = request.files.getlist('images')
-    #print(f"Number of images is: {len(img_files_ids)}")
-    all_results = []
-    for img_file in request.files.getlist('images'):
-        img_name = werkzeug.utils.secure_filename(img_file.filename)
-        #print(f"Received image: {img_name}")
-        img_path = os.path.join(saving_folder, img_name)
-        img_file.save(img_path)
-        predictions = get_predictions(img_path)
-        result = {'img_path': img_path, 'predictions': predictions}
-        all_results.append(result)
-    bools = nsfw_classifier.nsfw_prediction_check(all_results)
-    return jsonify(
-        #data = all_results,
-        contains_nude = bools['nude'],
-        contains_sexy = bools['sexy'],
-        contains_violence = bools['violence'],
+    json_body = request.get_json()
+    if 'image_url' not in json_body:
+        return Response(
+            response = json.dumps({"status": "USER_ERROR", "description": "Missing 'image_url' in body.", "prediction": {}}),
+            status = 400,
+            mimetype = "application/json",
+            headers = {"Content-Type": "application/json"}
+        )
+    image_response = requests.get(json_body['image_url'], stream = True, timeout = 60)
+    # Failed to fetch the image
+    if not image_response.ok:
+        return Response(
+            response = json.dumps({"status": "SERVER_ERROR", "description": "Failed to fetch the image.", "prediction": {}}),
+            status = 500,
+            mimetype = "application/json",
+            headers = {"Content-Type": "application/json"}
+        )
+    try:
+        with open("temp_image.jpg", "wb") as temp_image_file:
+            temp_image_file.write(image_response.content)
+    except IOError:
+        return Response(
+            response = json.dumps({"status": "SERVER_ERROR", "description": "Failed to save the image.", "prediction": {}}),
+            status = 500,
+            mimetype = "application/json",
+            headers = {"Content-Type": "application/json"}
+        )
+    predictions = get_predictions("temp_image.jpg")
+    result = nsfw_classifier.nsfw_prediction_check(predictions)
+    return Response(
+        # response = json.dumps({"status": "OK", "description": "Prediction successful.", "prediction": {"contains_nude": result['nude'], "contains_sexy": result['sexy'], "contains_violence": result['violence'], "contains_drugs": result['drugs']}}),
+        response = json.dumps({"status": "OK", "description": "Prediction successful.", "prediction": {"contains_nude": result['nude'], "contains_sexy": result['sexy'], "contains_violence": result['violence']}}),
+        status = 200,
+        mimetype = "application/json",
+        headers = {"Content-Type": "application/json"}
     )
 
 

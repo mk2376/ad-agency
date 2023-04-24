@@ -8,10 +8,9 @@ from PIL import Image
 # Keras, Tensorflow
 from tensorflow import keras
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
+from keras.layers import Dense, Dropout
 from keras.applications.mobilenet import preprocess_input
 from keras.applications.vgg16 import VGG16
-from keras.utils import load_img, img_to_array
 
 class NSFWClassifier():
 
@@ -55,7 +54,6 @@ class NSFWClassifier():
     def nsfw_detection(self, image_path):
         image = self.prepare_image(image_path, dimensions=(224, 224))
         prediction = self.model.predict(image)
-        print(f"Our prediction: {prediction}\n{prediction.shape}")
         return prediction
 
 
@@ -66,7 +64,6 @@ class NSFWClassifier():
         prediction = self.nudity_model.predict(prediction_image)
         classes = np.argmax(prediction, axis=1)
         result = self.target_tag.columns.values[classes][0]
-        #print(f"Result: {result}")
         nudity_score = {}
         nudity_score[image_path] = {
             'unsafe': 100 if result == "nude" else 0,
@@ -80,18 +77,22 @@ class NSFWClassifier():
         check = {
             'nude': False,
             'sexy': False,
-            'violence': False
+            'violence': False,
+            'drugs': False
         }
-        # Check for NSFW content
-        for res in prediction:
-            # Nudity
-            if res['predictions']['nude_score'] == 100:
-                check['nude'] = True
-            if res['predictions']['sexy_score'] == 100:
-                check['sexy'] = True
-            # Violence
-            if res['predictions']['violence_score'] > 35 and res['predictions']['natural_score'] < 25:
-                check['violence'] = True
-            if res['predictions']['violence_score'] > 39:
-                check['violence'] = True
+        # Nudity
+        if prediction['nude_score'] == 100:
+            check['nude'] = True
+        # Sexy
+        if prediction['sexy_score'] == 100:
+            check['sexy'] = True
+        # Violence
+        if prediction['violence_score'] > 35 and prediction['natural_score'] < 25:
+            check['violence'] = True
+        if prediction['violence_score'] > 39:
+            check['violence'] = True
+        # Drugs
+        # if prediction['drugs_score'] > 40 and prediction['natural_score'] < 30:
+        #     check['drugs'] = True
+        # Return
         return check
