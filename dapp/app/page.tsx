@@ -1,19 +1,21 @@
-import Link from 'next/link';
+export const metadata = {
+  title: 'WEB3 ADVERTISING AGENCY',
+  description: 'WEB3 ADVERTISING AGENCY',
+}
 
 export default function Home() {
   return (
-    <div className="h-screen bg-no-repeat bg-contain bg-cover-image flex">
-      <div className="m-auto">
-        <h1 className="text-9xl text-primary-500 font-mono font-medium my-10">WEB3 ADVERTISING AGENCY</h1>
-        <h2 className="text-5xl text-white font-mono font-medium my-10 text-center">Dedicated to planning and handling advertising</h2>
-        <div className="flex justify-around">
-          <Link href="/advertisements/overview" className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-10 px-16 rounded text-2xl flex mr-6">
-            <img src="/assets/img/bookmark_white.svg" className="px-2"></img>Enter as advertising client
-          </Link>
-          <Link href="/websites/overview" className="bg-white hover:bg-slate-50 text-black font-bold py-10 px-16 rounded text-2xl flex">
-            <img src="/assets/img/bookmark_black.svg" className="px-2"></img>Enter as advertising client
-          </Link>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+      <h1 className="text-6xl font-bold">
+        Welcome to <a className="text-blue-600" href="/">WEB3 ADVERTISING AGENCY</a>
+      </h1>
+
+      <p className="mt-3 text-2xl">
+        Revolutionizing the advertising industry with blockchain technology.
+      </p>
+
+      <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
+        {/* We will add more content here later */}
       </div>
     </div>
   )
