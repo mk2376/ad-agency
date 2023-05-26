@@ -10,8 +10,8 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'cover-image': "url('/cover_background.svg')",
-        'page-background': "url('/page_background.svg')",
+        'cover-image': "url('/assets/svg/cover_background.svg')",
+        'page-background': "url('/assets/svg/page_background.svg')",
       },
       colors: {
         primary: {
