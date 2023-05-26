@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-6 bg-blue-500">
+    <nav className="flex items-center justify-between p-6 backdrop-blur-sm">
       <div className="text-white">
         <h1 className="text-3xl font-bold">WEB3 ADVERTISING AGENCY</h1>
       </div>

@@ -18,28 +18,10 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+    background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
-
-.app {
-  /* Add your cover background image */
-  background-image: url('/assets/img/cover_background.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  /* Set the min-height of .app to be 100% so it takes up the entire height of its parent */
-  min-height: 100%;
-}
-
-.body {
-  /* Set the height of the body to be the height of the viewport */
-  height: 100vh;
-  /* Add your page background image */
-  background-image: url('/assets/img/page_background.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
