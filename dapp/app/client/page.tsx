@@ -15,13 +15,13 @@ export default function Client() {
 
             {/* Add Client-specific components here */}
             <div className="flex flex-row gap-8 mt-8">
-                <Link href="/ads/view">
+                <Link href="/client/view">
                     <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
                         View my advertisements
                     </button>
                 </Link>
 
-                <Link href="/ads/submit">
+                <Link href="/client/submit">
                     <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
                         Submit a new advertisement
                     </button>
