@@ -1,15 +1,12 @@
 export default function Footer() {
-  return (
-    <footer className="flex items-center justify-center w-full h-24 backdrop-blur-md bg-violet-950/50">
-        <a
-            className="flex items-center justify-center"
-            href="https://ad-agency.web3"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            Powered by {'NextJS, Tailwind CSS, Solidity, ...'}
-                <img src="/logo.svg" alt="Logo" className="h-4 ml-2" />
-        </a>
-    </footer>
-  )
+    return (
+        <footer className="flex flex-col justify-center items-center w-full h-24 backdrop-blur-md bg-violet-950/50">
+            <p>Powered by NextJS, Tailwind CSS and Solidity</p>
+            <p>Project by Žan Kogovšek and Miha Krumpestar</p>
+            <p>
+                Course: Fog Computing for Smart Services (University of
+                Ljubljana, Faculty of Computer and Information Science)
+            </p>
+        </footer>
+    );
 }

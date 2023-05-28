@@ -1,33 +1,32 @@
+import Link from "next/link";
+
 export const metadata = {
-    title: 'Client - WEB3 ADVERTISING AGENCY',
-}
+    title: "Client - WEB3 ADVERTISING AGENCY",
+};
 
 export default function Client() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome, Client!
-        </h1>
+    return (
+        <main className="flex flex-col items-center">
+            <h1 className="text-6xl font-bold">Welcome, Client!</h1>
 
-        <p className="mt-3 text-2xl">
-          Here you can submit your ads, set your budget, and target your audience.
-        </p>
+            <p className="mt-3 text-2xl">
+                Here you can view all your advertisements or submit new ones!
+            </p>
 
-        {/* Add Client-specific components here */}
-      </main>
+            {/* Add Client-specific components here */}
+            <div className="flex flex-row gap-8 mt-8">
+                <Link href="/ads/view">
+                    <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
+                        View my advertisements
+                    </button>
+                </Link>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://www.yourwebsite.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/logo.svg" alt="Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
-  );
+                <Link href="/ads/submit">
+                    <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
+                        Submit a new advertisement
+                    </button>
+                </Link>
+            </div>
+        </main>
+    );
 }
