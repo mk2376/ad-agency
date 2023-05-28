@@ -26,7 +26,7 @@ export default function Ad({ params }: { params: { id: string } }) {
             <Card status={true} title='3. AI model performs the classification' description='Classification by the previously picked AI model has been performed.'></Card>
             <Card status={false} title='4. Advertisement is accepted' description='Congratulations Your advertisement has been approved.'></Card>
             <Card status={false} title='5. List of relevant websites' description='Websites that have the relevant target audience have been found.'></Card>
-            <Card status={false} title='6. Advertisement is displayed on the website' description='Your advertisement is visile on the website. Creck it out <a href="">here<a/>.'></Card>
+            <Card status={false} title='6. Advertisement is displayed on the website' description='Your advertisement is visile on the website. Check it out here.'></Card>
         </div>
       </main>
     </div>
