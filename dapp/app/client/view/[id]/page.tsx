@@ -56,6 +56,24 @@ export default function Ad({ params }: { params: { id: string } }) {
         }
     };
 
+    const temp_ad: Advertisement = {
+        owner: "string",
+        budget: "any",
+        ipfsHash: "string",
+        tag: "string",
+        id: "any",
+        isChecked: true,
+        isAppropriate: false,
+        visitors: [
+            "34r545345",
+            "r4tertzer",
+            "rtgegtdhh"
+        ],
+        websiteId: "any",
+    }
+
+    //setAd(temp_ad)
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
             <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
@@ -80,7 +98,7 @@ export default function Ad({ params }: { params: { id: string } }) {
                     Track the status of your advertisement
                 </h1>
 
-                <p className="mt-9 mb-8 text-2xl mb-8 text-gray-800">
+                <p className="mt-9 mb-8 text-2xl text-gray-800">
                     Check how your advertisement is progressing
                 </p>
                 {ad && !ad.isChecked && (
@@ -104,17 +122,17 @@ export default function Ad({ params }: { params: { id: string } }) {
                         description="AI model that will perform the advertisement classification has been picked."
                     ></Card>
                     <Card
-                        status={ad && ad.isChecked}
+                        status={ad! && ad.isChecked}
                         title="3. AI model performs the classification"
                         description="Classification by the previously picked AI model has been performed."
                     ></Card>
                     <Card
-                        status={ad && ad.isAppropriate}
+                        status={ad! && ad.isAppropriate}
                         title="4. Advertisement is accepted"
                         description="Congratulations Your advertisement has been approved."
                     ></Card>
                     <Card
-                        status={ad && ad.websiteId != -1}
+                        status={ad! && ad.websiteId != -1}
                         title="5. Advertisement is displayed on the website"
                         description="Your advertisement is visible on the website. Check it out here."
                     ></Card>

@@ -129,7 +129,7 @@ export default function ClientAdSubmit() {
                             value={timeRange}
                             onChange={handleTimeRangeChange}
                         />
-                        <p>{JSON.stringify(timeRange)}</p>
+                        { /* <p>{JSON.stringify(timeRange)}</p> */ }
                     </div>
                 </div>
                 <div className="pt-8">

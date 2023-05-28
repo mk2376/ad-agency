@@ -6,14 +6,13 @@ export const metadata = {
 
 export default function Client() {
     return (
-        <main className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
             <h1 className="text-6xl font-bold">Welcome, Client!</h1>
 
             <p className="mt-3 text-2xl">
                 Here you can view all your advertisements or submit new ones!
             </p>
 
-            {/* Add Client-specific components here */}
             <div className="flex flex-row gap-8 mt-8">
                 <Link href="/client/view">
                     <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
@@ -27,6 +26,6 @@ export default function Client() {
                     </button>
                 </Link>
             </div>
-        </main>
+        </div>
     );
 }
