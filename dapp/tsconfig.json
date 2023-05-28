@@ -28,10 +28,7 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts",
-        "app/ads/submit/page.js",
-        "app/ads/view/page.js",
-        "hooks/getAdvertisements.js"
+        ".next/types/**/*.ts"
     ],
     "exclude": ["node_modules"]
 }

@@ -1,11 +1,11 @@
 export default class Advertisement {
-    owner;
-    budget;
-    ipfsHash;
-    tag;
-    id;
+    owner: string;
+    budget: any;
+    ipfsHash: string;
+    tag: string;
+    id: string;
 
-    constructor(data) {
+    constructor(data: any) {
         this.owner = data[0];
         this.budget = data[1];
         this.ipfsHash = data[2];

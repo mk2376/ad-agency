@@ -5,11 +5,11 @@ import React, { useState } from "react";
 
 import { create } from "ipfs-http-client";
 import { API_KEY, API_KEY_SECRET } from "@secrets/infura";
-import getAdvertisements from "@hooks/getAdvertisements";
+import getAllAdvertisements from "@hooks/getAdvertisements";
 
-const ClientAdSubmit = () => {
+export default function ClientAdSubmit() {
     /* Smart Contract */
-    const { advertisements, submitAdvertisement } = getAdvertisements();
+    const { advertisements, submitAdvertisement } = getAllAdvertisements();
 
     /* Message */
     const [message, setMessage] = useState("");
@@ -17,10 +17,10 @@ const ClientAdSubmit = () => {
     /* Time Range Variables */
     const [timeRange, setTimeRange] = useState({
         startDate: new Date(),
-        endDate: new Date().setDate(new Date().getDate() + 7),
+        endDate: new Date(new Date().setDate(new Date().getDate() + 7)),
     });
 
-    const handleTimeRangeChange = (newTimeRange) => {
+    const handleTimeRangeChange = (newTimeRange: any) => {
         console.log("New Time Range:", newTimeRange);
         setTimeRange(newTimeRange);
         // Reset the message
@@ -29,7 +29,7 @@ const ClientAdSubmit = () => {
 
     /* Budget Variables */
     const [budget, setBudget] = useState(0.0);
-    const handleBudgetChange = (newBudgetEvent) => {
+    const handleBudgetChange = (newBudgetEvent: any) => {
         let pBudget = newBudgetEvent.target.value;
         console.log("New budget:", pBudget);
         setBudget(pBudget);
@@ -40,7 +40,7 @@ const ClientAdSubmit = () => {
     /* IPFS Variables */
     const ipfs = create({
         host: "ipfs.infura.io",
-        port: "5001",
+        port: 5001,
         protocol: "https",
         headers: {
             authorization:
@@ -49,7 +49,7 @@ const ClientAdSubmit = () => {
         },
     });
     const [file, setFile] = useState();
-    const handleFileChange = (newFileEvent) => {
+    const handleFileChange = (newFileEvent: any) => {
         let pFile = newFileEvent.target.files[0];
         console.log("New file:", pFile);
         setFile(pFile);
@@ -59,7 +59,7 @@ const ClientAdSubmit = () => {
 
     /* Tag Variables */
     const [tag, setTag] = useState("");
-    const handleTagChange = (newTagEvent) => {
+    const handleTagChange = (newTagEvent: any) => {
         let pTag = newTagEvent.target.value;
         console.log("New tag:", pTag);
         setTag(pTag);
@@ -68,23 +68,23 @@ const ClientAdSubmit = () => {
     };
 
     /* Transform file into buffer */
-    const readFileAsBuffer = (inputFile) => {
+    const readFileAsBuffer = (inputFile: any) => {
         const tempFileReader = new FileReader();
 
         return new Promise((resolve, reject) => {
             tempFileReader.onloadend = () => {
-                resolve(Buffer(tempFileReader.result));
+                resolve(Buffer.from(tempFileReader.result as string));
             };
             tempFileReader.onerror = () => {
                 tempFileReader.abort();
                 reject(new DOMException("Problem parsing input file."));
             };
-            tempFileReader.readAsArrayBuffer(file);
+            tempFileReader.readAsArrayBuffer(inputFile);
         });
     };
 
     /* Handle onSubmit */
-    async function handleOnSubmit(event) {
+    async function handleOnSubmit(event: any) {
         event.preventDefault();
         if (
             !timeRange.startDate ||
@@ -97,10 +97,10 @@ const ClientAdSubmit = () => {
         }
         /* Submit image to IPFS */
         let buffer = await readFileAsBuffer(file);
-        const res = await ipfs.add(buffer);
+        const res = await ipfs.add(buffer as any);
 
         /* Save advertisement to smart contract */
-        submitAdvertisement(res.path, tag, budget);
+        submitAdvertisement(res.path, tag, String(budget));
     }
 
     return (
@@ -127,6 +127,7 @@ const ClientAdSubmit = () => {
                             value={timeRange}
                             onChange={handleTimeRangeChange}
                         />
+                        <p>{JSON.stringify(timeRange)}</p>
                     </div>
                 </div>
                 <div className="pt-8">
@@ -179,7 +180,7 @@ const ClientAdSubmit = () => {
                             value={tag}
                             onChange={handleTagChange}
                             id="message"
-                            rows="4"
+                            rows={4}
                             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white/80 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="technology, consumers, laptop, phone, ..."
                         ></textarea>
@@ -197,4 +198,3 @@ const ClientAdSubmit = () => {
     );
 };
 
-export default ClientAdSubmit;

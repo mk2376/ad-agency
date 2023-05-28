@@ -8,25 +8,25 @@ import { useState, useEffect } from "react";
 
 import AdvertisementSmartContract from "../../smart_contracts/build/contracts/Advertisements.json";
 
-const getAdvertisements = () => {
-    const [advertisements, setAdvertisements] = useState([]);
+export default function getAdvertisements() {
+    const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
 
     const abi = AdvertisementSmartContract.abi;
 
     useEffect(() => {
-        getAdvertisements();
+        getAllAdvertisements();
     }, []);
 
-    async function getAdvertisements() {
+    async function getAllAdvertisements() {
         const data = await axios.get("/api/getAdvertisements");
         const result = data.data
-            .map((item) => new Advertisement(item))
+            .map((item: Advertisement) => new Advertisement(item))
             .reverse();
         setAdvertisements(result);
         console.log(result);
     }
 
-    async function submitAdvertisement(ipfsHash, tag, budget) {
+    async function submitAdvertisement(ipfsHash: string, tag: string, budget: string) {
         const web3Modal = new Web3Modal({
             cacheProvider: true,
             providerOptions: {
@@ -57,9 +57,8 @@ const getAdvertisements = () => {
 
     return {
         advertisements: advertisements,
-        submitAdvertisement: (ipfsHash, tag, budget) =>
+        submitAdvertisement: (ipfsHash: string, tag: string, budget: string) =>
             submitAdvertisement(ipfsHash, tag, budget),
     };
 };
 
-export default getAdvertisements;

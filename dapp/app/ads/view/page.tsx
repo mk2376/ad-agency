@@ -1,11 +1,11 @@
 "use client";
 
-import getAdvertisements from "@hooks/getAdvertisements";
+import getAllAdvertisements from "@hooks/getAdvertisements";
 import { utils } from "ethers";
 
 const ClientAdView = () => {
     /* Smart Contract */
-    const { advertisements, submitAdvertisement } = getAdvertisements();
+    const { advertisements, submitAdvertisement } = getAllAdvertisements();
 
     return (
         <main className="flex flex-col items-center">

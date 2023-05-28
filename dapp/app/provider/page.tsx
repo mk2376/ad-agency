@@ -16,18 +16,6 @@ export default function Provider() {
 
         {/* Add Provider-specific components here */}
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://www.yourwebsite.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/logo.svg" alt="Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
     </div>
   );
 }
