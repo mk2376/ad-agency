@@ -1,4 +1,7 @@
-import { contractAddress, ethEndpoint } from "@constants/ethConstants";
+import {
+    advertisementContractAddress,
+    ethEndpoint,
+} from "@constants/ethConstants";
 import { ethers } from "ethers";
 
 import AdvertisementSmartContract from "../../../../smart_contracts/build/contracts/Advertisements.json";
@@ -11,13 +14,19 @@ export async function GET(request: Request) {
 
     let abi = AdvertisementSmartContract.abi;
 
-    const smartContract = new ethers.Contract(contractAddress, abi, provider);
+    const smartContract = new ethers.Contract(
+        advertisementContractAddress,
+        abi,
+        provider
+    );
 
     const result = await smartContract.getAdvertisements();
 
-    const advertisements = result.map((advertisement: Advertisement, index: number) => {
-        return advertisement;
-    });
+    const advertisements = result.map(
+        (advertisement: Advertisement, index: number) => {
+            return advertisement;
+        }
+    );
 
     return NextResponse.json(advertisements);
 }

@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { create } from "ipfs-http-client";
-import { API_KEY, API_KEY_SECRET } from "@secrets/infura";
+import getAllWebsites from "@hooks/getWebsites";
 
 export default function ClientAdSubmit() {
     /* Smart Contract */
-    
+    const { websites, submitWebsite } = getAllWebsites();
 
     /* Message */
     const [message, setMessage] = useState("");
-
 
     /* Budget Variables */
     const [websiteURL, setWebsiteURL] = useState<string>();
@@ -26,14 +23,15 @@ export default function ClientAdSubmit() {
     /* Handle onSubmit */
     async function handleOnSubmit(event: any) {
         event.preventDefault();
-        if (
-            !websiteURL
-        ) {
+        if (!websiteURL) {
             setMessage("Please make sure all the fields are filled out!");
+            return;
         }
 
         /* Save to smart contract */
-       
+        await submitWebsite(websiteURL);
+
+        setMessage("Success!");
     }
 
     return (
@@ -83,5 +81,4 @@ export default function ClientAdSubmit() {
             </div>
         </main>
     );
-};
-
+}

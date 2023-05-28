@@ -100,7 +100,9 @@ export default function ClientAdSubmit() {
         const res = await ipfs.add(buffer as any);
 
         /* Save advertisement to smart contract */
-        submitAdvertisement(res.path, tag, String(budget));
+        await submitAdvertisement(res.path, tag, String(budget));
+
+        setMessage("Success!");
     }
 
     return (
@@ -196,5 +198,4 @@ export default function ClientAdSubmit() {
             </div>
         </main>
     );
-};
-
+}

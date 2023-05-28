@@ -2,7 +2,7 @@ FROM python:3.11
 
 WORKDIR /app
 
-RUN pip install pandas numpy Pillow requests flask tensorflow gunicorn
+RUN pip install pandas numpy Pillow requests flask flask_cors tensorflow gunicorn
 
 ADD ./model ./model
 ADD ./weights ./weights

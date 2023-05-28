@@ -3,6 +3,7 @@ import requests
 
 # Flask utils
 from flask import Flask, request, Response, json
+from flask_cors import CORS
 
 # Model
 from ai_model import NSFWClassifier
@@ -15,6 +16,7 @@ nsfw_classifier.construct_nudity_model("./weights/")
 
 # Flask app
 app = Flask(__name__)
+CORS(app)
 
 def get_predictions(image_path):
     nude_value = nsfw_classifier.nude_detection(image_path)
