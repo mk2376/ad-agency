@@ -122,17 +122,17 @@ export default function Ad({ params }: { params: { id: string } }) {
                         description="AI model that will perform the advertisement classification has been picked."
                     ></Card>
                     <Card
-                        status={ad! && ad.isChecked}
+                        status={ad !== undefined && ad.isChecked}
                         title="3. AI model performs the classification"
                         description="Classification by the previously picked AI model has been performed."
                     ></Card>
                     <Card
-                        status={ad! && ad.isAppropriate}
+                        status={ad !== undefined && ad.isAppropriate}
                         title="4. Advertisement is accepted"
                         description="Congratulations Your advertisement has been approved."
                     ></Card>
                     <Card
-                        status={ad! && ad.websiteId != -1}
+                        status={ad !== undefined && ad.websiteId != -1}
                         title="5. Advertisement is displayed on the website"
                         description="Your advertisement is visible on the website. Check it out here."
                     ></Card>

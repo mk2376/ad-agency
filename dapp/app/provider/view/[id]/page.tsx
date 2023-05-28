@@ -56,6 +56,30 @@ const WebView = ({ params }: { params: { id: string } }) => {
         setMessage("Successfully selected advertisement to show on website!");
     }
 
+    const temp_chosenAd: Advertisement = {
+        owner: "owner",
+        budget:  {
+            _hex: "0x4453656"
+        },
+        ipfsHash: "string",
+        tag: "random tag",
+        id: "34545",
+        isChecked: true,
+        isAppropriate: false,
+        visitors: [
+            "34r545345",
+            "r4tertzer",
+            "rtgegtdhh"
+        ],
+        websiteId: "any",
+    }
+
+    const temp_adsWithoutWebsite = [
+        temp_chosenAd,
+        temp_chosenAd,
+        temp_chosenAd,
+    ]
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
             <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
@@ -93,48 +117,62 @@ const WebView = ({ params }: { params: { id: string } }) => {
                     <button
                         type="submit"
                         onClick={handlerUpdateWebsiteForAdvertisement}
-                        className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded text-left"
+                        className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded text-left"
                     >
                         Display this Advertisement
                     </button>
                 )}
 
-                <div className="grid grid-cols-3 gap-4 text-black text-4xl">
-                    {adsWithoutWebsite.map((ad, i) => {
-                        return (
-                            <div
-                                onClick={() => handleChosenAd(ad)}
-                                key={`ad_${i}`}
-                                className="flex flex-col items-center w-full m-6 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-                            >
-                                <Image
-                                    key={`${ad.ipfsHash}`}
-                                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                                    src={`https://ipfs.io/ipfs/${ad.ipfsHash}`}
-                                    alt={`Ad image #${i}`}
-                                    width={100}
-                                    height={100}
-                                />
+                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-black text-2xl">
+                    {adsWithoutWebsite.length == 0 ?
+                        <div className="flex flex-col items-center m-16 gap-14">
+                            <p className="mt-3 text-2xl">
+                                It seems like you don't have any advertisements for your website available yet
+                            </p>
+                        </div>
+                    :
+                        adsWithoutWebsite.map((ad, i) => {
+                            return (
                                 <div
-                                    key={`ad_internal_div_${i}`}
-                                    className="flex flex-col justify-between p-4 leading-normal"
+                                    onClick={() => handleChosenAd(ad)}
+                                    key={`ad_${i}`}
+                                    className="flex flex-col items-center w-full m-6 min-w-[450px] text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                                 >
-                                    <h5
-                                        key={`ad_budget_${i}`}
-                                        className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                                    <Image
+                                        key={`${ad.ipfsHash}`}
+                                        className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg  p-6"
+                                        src={`https://ipfs.io/ipfs/${ad.ipfsHash}`}
+                                        alt={`Ad image #${i}`}
+                                        width={100}
+                                        height={100}
+                                    />
+                                    <div
+                                        key={`ad_internal_div_${i}`}
+                                        className="flex flex-col justify-between p-4 leading-normal"
                                     >
-                                        Budget: {parseInt(ad.budget._hex)} WEI
-                                    </h5>
-                                    <p
-                                        key={`ad_tag_${i}`}
-                                        className="mb-3 font-normal text-gray-700 dark:text-gray-400"
-                                    >
-                                        Tag: {ad.tag}
-                                    </p>
+                                        <h5
+                                            key={`ad_tag_${i}`}
+                                            className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                                        >
+                                            Owner: {ad.owner}
+                                        </h5>
+                                        <p
+                                            key={`ad_budget_${i}`}
+                                            className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                                        >
+                                            Budget: {parseInt(ad.budget._hex)} WEI
+                                        </p>
+                                        <p
+                                            key={`ad_tag_${i}`}
+                                            className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                                        >
+                                            Tag: {ad.tag}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })
+                    }
                 </div>
             </main>
         </div>

@@ -15,7 +15,6 @@ export default function Provider() {
         Here you can submit your webpage and choose the ads that best fit your audience.
       </p>
 
-      {/* Add Client-specific components here */}
       <div className="flex flex-row gap-8 mt-8">
           <Link href="/provider/view">
               <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-4 px-4 rounded">
