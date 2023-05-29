@@ -12,27 +12,19 @@ const ClientAdView = () => {
 
     const temp_ad: Advertisement = {
         owner: "owner",
-        budget:  {
-            hex: "0x4453656"
+        budget: {
+            hex: "0x4453656",
         },
         ipfsHash: "string",
         tag: "random tag",
         id: "34545",
         isChecked: true,
         isAppropriate: false,
-        visitors: [
-            "34r545345",
-            "r4tertzer",
-            "rtgegtdhh"
-        ],
+        visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
-    }
+    };
 
-    const temp_advertisements = [
-        temp_ad,
-        temp_ad,
-        temp_ad,
-    ]
+    const temp_advertisements = [temp_ad, temp_ad, temp_ad];
 
     return (
         <main className="flex flex-col items-center">
@@ -40,7 +32,7 @@ const ClientAdView = () => {
                 These are your advertisements:
             </h1>
             <div className="min-w-[400px]">
-                { advertisements.length == 0 ? 
+                {advertisements.length == 0 ? (
                     <div className="flex flex-col items-center m-16 gap-14">
                         <p className="mt-3 text-2xl">
                             It seems like you don't have any advertisements yet
@@ -52,7 +44,7 @@ const ClientAdView = () => {
                             </button>
                         </Link>
                     </div>
-                :
+                ) : (
                     advertisements.map((ad, i) => {
                         return (
                             <Link
@@ -79,7 +71,10 @@ const ClientAdView = () => {
                                             key={`ad_budget_${i}`}
                                             className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                                         >
-                                            Budget: {parseInt(ad.budget.hex)} WEI
+                                            Budget:{" "}
+                                            {parseInt(ad.budget.hex) *
+                                                10 ** -18}{" "}
+                                            ETH
                                         </h5>
                                         <p
                                             key={`ad_tag_${i}`}
@@ -87,12 +82,19 @@ const ClientAdView = () => {
                                         >
                                             Tag: {ad.tag}
                                         </p>
+                                        <p
+                                            key={`ad_visitors_${i}`}
+                                            className="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                                        >
+                                            Number of visitors:{" "}
+                                            {ad.visitors.length}
+                                        </p>
                                     </div>
                                 </div>
                             </Link>
                         );
                     })
-                }
+                )}
             </div>
         </main>
     );

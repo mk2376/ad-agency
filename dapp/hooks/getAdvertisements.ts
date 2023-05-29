@@ -151,6 +151,35 @@ export default function getAdvertisements() {
         await tx.wait();
     }
 
+    async function closeAdvertisementAndSplitTheRewards(
+        adID: number,
+        websiteOwner: string
+    ) {
+        const web3Modal = new Web3Modal({
+            cacheProvider: true,
+            providerOptions: {
+                walletconnect: {
+                    package: WalletConnectProvider,
+                },
+            },
+        });
+        const instance = await web3Modal.connect();
+        const provider = new ethers.providers.Web3Provider(instance);
+        const signer = provider.getSigner();
+        const smartContract = new ethers.Contract(
+            advertisementContractAddress,
+            abi,
+            provider
+        );
+        const contractWithSigner = smartContract.connect(signer);
+        const tx =
+            await contractWithSigner.closeAdvertisementAndSplitTheRewards(
+                adID,
+                websiteOwner
+            );
+        await tx.wait();
+    }
+
     return {
         advertisements: advertisements,
         submitAdvertisement: (ipfsHash: string, tag: string, budget: string) =>
@@ -164,5 +193,9 @@ export default function getAdvertisements() {
         ) => updateAdvertisementWithAIKnowledge(id, appropriate),
         updateWebsiteForAdvertisement: (adID: number, websiteID: number) =>
             updateWebsiteForAdvertisement(adID, websiteID),
+        closeAdvertisementAndSplitTheRewards: (
+            adID: number,
+            websiteOwner: string
+        ) => closeAdvertisementAndSplitTheRewards(adID, websiteOwner),
     };
 }

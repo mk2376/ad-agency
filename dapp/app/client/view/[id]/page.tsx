@@ -3,7 +3,9 @@
 import Card from "@components/Card";
 import { useState, useEffect } from "react";
 import getAllAdvertisements from "@hooks/getAdvertisements";
+import getAllWebsites from "@hooks/getWebsites";
 import Advertisement from "@models/advertisement";
+import Website from "@models/website";
 import axios from "axios";
 import { AI_MODEL_URL } from "@constants/aiModel";
 
@@ -17,7 +19,10 @@ export default function Ad({ params }: { params: { id: string } }) {
         submitAdvertisement,
         getAdvertisementWithId,
         updateAdvertisementWithAIKnowledge,
+        closeAdvertisementAndSplitTheRewards,
     } = getAllAdvertisements();
+
+    const { getWebsiteWithId } = getAllWebsites();
 
     const [ad, setAd] = useState<Advertisement>();
 
@@ -64,15 +69,16 @@ export default function Ad({ params }: { params: { id: string } }) {
         id: "any",
         isChecked: true,
         isAppropriate: false,
-        visitors: [
-            "34r545345",
-            "r4tertzer",
-            "rtgegtdhh"
-        ],
+        visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
-    }
+    };
 
     //setAd(temp_ad)
+
+    const closeAdHandler = async (adID: number, websiteID: number) => {
+        let website: Website = await getWebsiteWithId(websiteID);
+        await closeAdvertisementAndSplitTheRewards(adID, website.owner);
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
@@ -136,6 +142,19 @@ export default function Ad({ params }: { params: { id: string } }) {
                         title="5. Advertisement is displayed on the website"
                         description="Your advertisement is visible on the website. Check it out here."
                     ></Card>
+                    <div
+                        onClick={() =>
+                            ad
+                                ? closeAdHandler(ad.id, ad.websiteId)
+                                : closeAdHandler(-1, -1)
+                        }
+                    >
+                        <Card
+                            status={false}
+                            title="6. Close this advertisement campaign"
+                            description="If you so desire, you can close this advertising campaing. Please click this card."
+                        ></Card>
+                    </div>
                 </div>
             </main>
         </div>

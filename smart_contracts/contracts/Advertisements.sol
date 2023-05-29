@@ -8,23 +8,22 @@ contract Advertisements {
     }
 
     struct Advertisement {
-        address owner;
+        address payable owner;
         uint256 budget;
         string ipfsHash;
         string tag;
         uint256 id;
         bool isChecked;
         bool isAppropriate;
-        address[] visitors;
+        address payable[] visitors;
         int256 websiteId;
     }
-
     mapping(uint256 => Advertisement) idToAdvertisement;
 
     function submitAdvertisement(string memory ipfsHash, string memory tag, uint256 budget) public payable {
         require(msg.value >= budget, "Budget goal not met!");
-        address[] memory visitors = new address[](0);
-        idToAdvertisement[id] = Advertisement(msg.sender, budget, ipfsHash, tag, id, false, false, visitors, -1);
+        address payable[] memory visitors = new address payable[](0);
+        idToAdvertisement[id] = Advertisement(payable(msg.sender), budget, ipfsHash, tag, id, false, false, visitors, -1);
         id++;
     }
 
@@ -59,6 +58,17 @@ contract Advertisements {
         return count;
     }
 
+    function getAdvertisementForWebsite(int256 websiteID) public view returns(Advertisement memory) {
+        Advertisement memory ad;
+        for(uint256 i = 0; i < id; i++) {
+            Advertisement memory tempAd = idToAdvertisement[i];
+            if (tempAd.websiteId == websiteID) {
+                ad = Advertisement(tempAd.owner, tempAd.budget, tempAd.ipfsHash, tempAd.tag, tempAd.id, tempAd.isChecked, tempAd.isAppropriate, tempAd.visitors, tempAd.websiteId);
+            }
+        }
+        return ad;
+    }
+
     function getAdvertisementsWithoutWebsite() public view returns(Advertisement[] memory) {
         uint256 countOfAdsWithoutWebsite = getCountOfAdvertisementsWithoutWebsite();
         Advertisement[] memory advertisements = new Advertisement[](countOfAdsWithoutWebsite);
@@ -75,7 +85,32 @@ contract Advertisements {
     }
 
     function updateAdvertisementWebsite(uint256 adID, int256 websiteID) public {
+        for(uint256 i = 0; i < id; i++) {
+            Advertisement storage tempAd = idToAdvertisement[i];
+            if (tempAd.websiteId == websiteID) {
+                tempAd.websiteId = -1;
+            }
+        }
         Advertisement storage ad = idToAdvertisement[adID];
         ad.websiteId = websiteID;
+    }
+
+    function appendVisitorToAdvertisement(uint256 adID) public {
+        Advertisement storage ad = idToAdvertisement[adID];
+        ad.visitors.push(payable(msg.sender));
+    }
+
+    function closeAdvertisementAndSplitTheRewards(uint256 adID, address payable websiteOwner) public {
+        Advertisement storage ad = idToAdvertisement[adID];
+        uint256 numberVisitors = ad.visitors.length + 1;
+        uint256 rewardPerVisitor = (ad.budget / 2) / numberVisitors;
+        uint256 rewardForWebsiteOwner = ad.budget / 4;
+        uint256 rewardForAdvertiser = ad.budget / 4;
+        for (uint256 i = 0; i < ad.visitors.length; i++) {
+            address payable visitor = ad.visitors[i];
+            visitor.transfer(rewardPerVisitor);
+        }
+        websiteOwner.transfer(rewardForWebsiteOwner);
+        ad.owner.transfer(rewardForAdvertiser);
     }
 }

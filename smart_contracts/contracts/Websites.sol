@@ -33,4 +33,18 @@ contract Websites {
         Website memory website = idToWebsite[websiteID];
         return website;
     }
+
+    function compareStrings(string memory a, string memory b) public view returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+}
+
+    function getWebsiteIdFromURL(string memory url) public view returns(int256) {
+        for(uint256 i = 0; i < id; i++) {
+            Website memory website = idToWebsite[i];
+            if (compareStrings(website.url, url)) {
+                return int256(website.id);
+            }
+        }
+        return -1;
+    }
 }

@@ -58,27 +58,23 @@ const WebView = ({ params }: { params: { id: string } }) => {
 
     const temp_chosenAd: Advertisement = {
         owner: "owner",
-        budget:  {
-            _hex: "0x4453656"
+        budget: {
+            _hex: "0x4453656",
         },
         ipfsHash: "string",
         tag: "random tag",
         id: "34545",
         isChecked: true,
         isAppropriate: false,
-        visitors: [
-            "34r545345",
-            "r4tertzer",
-            "rtgegtdhh"
-        ],
+        visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
-    }
+    };
 
     const temp_adsWithoutWebsite = [
         temp_chosenAd,
         temp_chosenAd,
         temp_chosenAd,
-    ]
+    ];
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
@@ -124,13 +120,14 @@ const WebView = ({ params }: { params: { id: string } }) => {
                 )}
 
                 <div className="grid grid-flow-col md:grid-flow-row gap-4 text-black text-2xl">
-                    {adsWithoutWebsite.length == 0 ?
+                    {adsWithoutWebsite.length == 0 ? (
                         <div className="flex flex-col items-center m-16 gap-14">
                             <p className="mt-3 text-2xl">
-                                It seems like you don't have any advertisements for your website available yet
+                                It seems like you don't have any advertisements
+                                for your website available yet
                             </p>
                         </div>
-                    :
+                    ) : (
                         adsWithoutWebsite.map((ad, i) => {
                             return (
                                 <div
@@ -160,7 +157,10 @@ const WebView = ({ params }: { params: { id: string } }) => {
                                             key={`ad_budget_${i}`}
                                             className="mb-3 font-normal text-gray-700 dark:text-gray-400"
                                         >
-                                            Budget: {parseInt(ad.budget._hex)} WEI
+                                            Budget:{" "}
+                                            {parseInt(ad.budget._hex) *
+                                                10 ** -18}{" "}
+                                            ETH
                                         </p>
                                         <p
                                             key={`ad_tag_${i}`}
@@ -172,7 +172,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
                                 </div>
                             );
                         })
-                    }
+                    )}
                 </div>
             </main>
         </div>
