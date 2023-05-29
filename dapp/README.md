@@ -16,18 +16,52 @@ make build-deploy
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## File structure
+## Pages
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### First page
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+![First Page](../assets/dapp/first_page.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Connect Wallet page
 
-## IPFS Image Upload
+![Connect Wallet Page](../assets/dapp/connect_wallet_page.png)
 
-Head to **/ipfs** to try out image upload to IPFS.
-Before use Infura **API_KEY** and **API_KEY_SECRET** need to be put inside folder **secret.js**.
+### Visitor page
 
-Demonstration:
-![IPFS Image Upload Demo](../assets/img/ipfs_image_upload.gif)
+![Visitor Page](../assets/dapp/visitor_page.png)
+
+### Client Overview Page
+
+![Client Overview Page](../assets/dapp/client_overview_page.png)
+
+### Submit Advertisement page
+
+![Submit Advertisement Page](../assets/dapp/submit_advertisement_page.png)
+
+### Advertisement List Page
+
+![Advertisement List Page](../assets/dapp/advertisement_list.png)
+
+### Advertisement Details Page
+
+![Advertisement Details Page](../assets/dapp/ad_details_page.png)
+
+### Provider Overview Page
+
+![Provider Overview Page](../assets/dapp/provider_overview_page.png)
+
+### Provider Submit Page
+
+![Provider Submit Page](../assets/dapp/provider_submit_page.png)
+
+### Provider List Page
+
+![Provider List Page](../assets/dapp/provider_view_page.png)
+
+### Website Details Page
+
+![Website Details Page](../assets/dapp/website_details_page.png)
+
+### Sample Page with Advertisement
+
+![Sample Page with Advertisement](../assets/dapp/sample_page.png)

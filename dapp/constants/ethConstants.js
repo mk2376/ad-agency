@@ -1,5 +1,5 @@
 export const ethEndpoint = "HTTP://127.0.0.1:8545";
 export const advertisementContractAddress =
-    "0xF03bC12181aaa1aC4b47b660928C02a1f93B3f56";
+    "0x28bdF29b59F916B1F6FB4d8303BfA5c0D3632d67";
 export const websiteContractAddress =
-    "0xb56af0AfcCE135634C4E41C22F65B6F2382EA4e4";
+    "0x0c78e3fe7329855e0D607A2A3bf0242CcDA166c1";
