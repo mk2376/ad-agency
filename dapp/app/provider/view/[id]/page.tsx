@@ -15,8 +15,11 @@ const WebView = ({ params }: { params: { id: string } }) => {
     const { getWebsiteWithId } = getAllWebsites();
 
     /* Advertisement data */
-    const { getAdvertisementsWithoutWebsite, updateWebsiteForAdvertisement } =
-        getAllAdvertisements();
+    const {
+        getAdvertisementsWithoutWebsite,
+        updateWebsiteForAdvertisement,
+        getAdvertisementForWebsite,
+    } = getAllAdvertisements();
 
     const [adsWithoutWebsite, setAdsWithoutWebsite] = useState<Advertisement[]>(
         []
@@ -25,6 +28,18 @@ const WebView = ({ params }: { params: { id: string } }) => {
         let ads = await getAdvertisementsWithoutWebsite();
         setAdsWithoutWebsite(ads);
     };
+
+    const [currentAd, setCurrentAd] = useState<Advertisement>();
+    const fetchCurrentAd = async () => {
+        let ad = await getAdvertisementForWebsite(parseInt(params.id));
+        console.log("Ad for website:", ad);
+        if (ad.ipfsHash != "") {
+            setCurrentAd(ad);
+        }
+    };
+    useEffect(() => {
+        fetchCurrentAd();
+    }, []);
 
     const [website, setWebsite] = useState<Website>();
     const fetchWebsiteData = async () => {
@@ -39,7 +54,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
     /* Chosen ad */
     const [chosenAd, setChosenAd] = useState<Advertisement>();
     const handleChosenAd = (ad: Advertisement) => {
-        console.log(ad);
+        console.log("Chosen ad:", ad);
         setChosenAd(ad);
     };
 
@@ -103,28 +118,63 @@ const WebView = ({ params }: { params: { id: string } }) => {
                 <p className="mt-9 mb-4 text-2xl text-gray-200">
                     Check which ads are shown to your viewers
                 </p>
+                {!currentAd && (
+                    <p className="mt-9 mb-4 text-2xl text-gray-800">
+                        You are currently not displaying any advertisements on
+                        this website!
+                    </p>
+                )}
+                {currentAd && (
+                    <p className="mt-9 mb-4 text-2xl text-gray-800">
+                        Currently displaying the following advertisement:
+                    </p>
+                )}
+                {currentAd && (
+                    <div className="flex flex-col items-center w-full m-6 text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 text-ellipsis">
+                        <Image
+                            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg  p-6"
+                            src={`https://ipfs.io/ipfs/${currentAd.ipfsHash}`}
+                            alt={`Ad image`}
+                            width={100}
+                            height={100}
+                        />
+                        <div className="flex flex-col justify-between p-4 leading-normal">
+                            <h5 className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                Owner: {currentAd.owner}
+                            </h5>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                Budget:{" "}
+                                {parseInt(currentAd.budget._hex) * 10 ** -18}{" "}
+                                ETH
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                Tag: {currentAd.tag}
+                            </p>
+                        </div>
+                    </div>
+                )}
 
-                {chosenAd && (
-                    <p className="mt-9 mb-8 text-2xl text-gray-200">
-                        Currently chosen:{parseInt(chosenAd.id._hex)}
+                {adsWithoutWebsite.length > 0 && (
+                    <p className="mt-9 mb-8 text-2xl text-gray-800">
+                        Choose an advertisement to display on the website from
+                        the list below:
                     </p>
                 )}
                 {chosenAd && (
                     <button
                         type="submit"
                         onClick={handlerUpdateWebsiteForAdvertisement}
-                        className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded text-left"
+                        className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded text-left w-64"
                     >
-                        Display this Advertisement
+                        Display Advertisement
                     </button>
                 )}
-
-                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-white text-2xl">
+                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-black text-2xl">
                     {adsWithoutWebsite.length == 0 ? (
                         <div className="flex flex-col items-center m-16 gap-14">
                             <p className="mt-3 text-2xl">
-                                It seems like you don't have any advertisements
-                                for your website available yet
+                                It seems there are no advertisements available
+                                for this website.
                             </p>
                         </div>
                     ) : (
@@ -133,7 +183,12 @@ const WebView = ({ params }: { params: { id: string } }) => {
                                 <div
                                     onClick={() => handleChosenAd(ad)}
                                     key={`ad_${i}`}
-                                    className="flex flex-col items-center w-full m-6 min-w-[450px] text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                    className={`flex flex-col items-center w-full m-6 text-left bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-ellipsis ${
+                                        parseInt(ad.id._hex) ==
+                                        parseInt(chosenAd?.id._hex)
+                                            ? "border-4 border-rose-500"
+                                            : ""
+                                    }`}
                                 >
                                     <Image
                                         key={`${ad.ipfsHash}`}
@@ -148,7 +203,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
                                         className="flex flex-col justify-between p-4 leading-normal"
                                     >
                                         <h5
-                                            key={`ad_tag_${i}`}
+                                            key={`ad_owner_${i}`}
                                             className="mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                                         >
                                             Owner: {ad.owner}

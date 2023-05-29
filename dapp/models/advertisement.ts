@@ -8,6 +8,7 @@ export default class Advertisement {
     isAppropriate: boolean;
     visitors: string[];
     websiteId: any;
+    isClosed: boolean;
 
     constructor(data: any) {
         this.owner = data[0];
@@ -19,5 +20,6 @@ export default class Advertisement {
         this.isAppropriate = data[6];
         this.visitors = data[7];
         this.websiteId = data[8];
+        this.isClosed = data[9];
     }
 }

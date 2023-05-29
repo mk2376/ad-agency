@@ -11,7 +11,7 @@ export default function ClientAdSubmit() {
     const [message, setMessage] = useState("");
 
     /* Budget Variables */
-    const [websiteURL, setWebsiteURL] = useState<string>();
+    const [websiteURL, setWebsiteURL] = useState<string>("");
     const handleWebsiteURL = (newWebsiteURLEvent: any) => {
         let websiteURL = newWebsiteURLEvent.target.value;
         console.log("New websiteURL:", websiteURL);

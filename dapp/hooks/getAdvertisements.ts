@@ -43,6 +43,48 @@ export default function getAdvertisements() {
         return result;
     }
 
+    async function getAdvertisementForWebsite(id: number) {
+        const provider = ethers.providers.getDefaultProvider(ethEndpoint);
+
+        const smartContract = new ethers.Contract(
+            advertisementContractAddress,
+            abi,
+            provider
+        );
+
+        const result = await smartContract.getAdvertisementForWebsite(id);
+
+        return result;
+    }
+
+    async function getAdvertisementsForAddress() {
+        const provider = ethers.providers.getDefaultProvider(ethEndpoint);
+
+        const smartContract = new ethers.Contract(
+            advertisementContractAddress,
+            abi,
+            provider
+        );
+
+        const currProvider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await currProvider.listAccounts();
+        const addr = accounts[0];
+
+        const result = await smartContract.getAdvertisementsForAddress(addr);
+
+        const data = result.map(
+            (advertisement: Advertisement, index: number) => {
+                return advertisement;
+            }
+        );
+
+        const advertisements = data
+            .map((item: Advertisement) => new Advertisement(item))
+            .reverse();
+
+        return advertisements;
+    }
+
     async function getAdvertisementsWithoutWebsite() {
         const provider = ethers.providers.getDefaultProvider(ethEndpoint);
 
@@ -62,6 +104,25 @@ export default function getAdvertisements() {
             .map((item: Advertisement) => new Advertisement(item))
             .reverse();
         return advertisements;
+    }
+
+    async function getNumberOfVisitsForAddress() {
+        const provider = ethers.providers.getDefaultProvider(ethEndpoint);
+
+        const smartContract = new ethers.Contract(
+            advertisementContractAddress,
+            abi,
+            provider
+        );
+
+        const currProvider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await currProvider.listAccounts();
+        const addr = accounts[0];
+        console.log("Address:", addr);
+
+        const result = await smartContract.getNumberOfVisitsForAddress(addr);
+
+        return result;
     }
 
     async function submitAdvertisement(
@@ -197,5 +258,9 @@ export default function getAdvertisements() {
             adID: number,
             websiteOwner: string
         ) => closeAdvertisementAndSplitTheRewards(adID, websiteOwner),
+        getAdvertisementsForAddress: () => getAdvertisementsForAddress(),
+        getNumberOfVisitsForAddress: () => getNumberOfVisitsForAddress(),
+        getAdvertisementForWebsite: (id: number) =>
+            getAdvertisementForWebsite(id),
     };
 }

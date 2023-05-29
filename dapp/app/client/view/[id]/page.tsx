@@ -26,8 +26,17 @@ export default function Ad({ params }: { params: { id: string } }) {
 
     const [ad, setAd] = useState<Advertisement>();
 
+    const [link, setLink] = useState("/");
+
     const fetchData = async () => {
         let advertisement = await getAdvertisementWithId(parseInt(params.id));
+        if (advertisement.websiteId != -1) {
+            let website = await getWebsiteWithId(advertisement.websiteId);
+            if (website.url) {
+                setLink(website.url);
+            }
+        }
+        console.log("This advertisement:", advertisement);
         setAd(advertisement);
     };
 
@@ -76,8 +85,10 @@ export default function Ad({ params }: { params: { id: string } }) {
     //setAd(temp_ad)
 
     const closeAdHandler = async (adID: number, websiteID: number) => {
-        let website: Website = await getWebsiteWithId(websiteID);
-        await closeAdvertisementAndSplitTheRewards(adID, website.owner);
+        if (adID >= 0 && websiteID >= 0) {
+            let website: Website = await getWebsiteWithId(websiteID);
+            await closeAdvertisementAndSplitTheRewards(adID, website.owner);
+        }
     };
 
     return (
@@ -137,21 +148,26 @@ export default function Ad({ params }: { params: { id: string } }) {
                         title="4. Advertisement is accepted"
                         description="Congratulations Your advertisement has been approved."
                     ></Card>
-                    <Card
-                        status={ad !== undefined && ad.websiteId != -1}
-                        title="5. Advertisement is displayed on the website"
-                        description="Your advertisement is visible on the website. Check it out here."
-                    ></Card>
+                    <a href={link}>
+                        <Card
+                            status={ad !== undefined && ad.websiteId != -1}
+                            title="5. Advertisement is displayed on the website"
+                            description="Your advertisement is visible on the website. Check it out by clicking on this card."
+                        ></Card>
+                    </a>
                     <div
                         className="m-0 p-0"
                         onClick={() =>
                             ad
-                                ? closeAdHandler(ad.id, ad.websiteId)
+                                ? closeAdHandler(
+                                      parseInt(ad.id._hex),
+                                      parseInt(ad.websiteId._hex)
+                                  )
                                 : closeAdHandler(-1, -1)
                         }
                     >
                         <Card
-                            status={false}
+                            status={ad !== undefined && ad.isClosed}
                             title="6. Close this advertisement campaign"
                             description="If you so desire, you can close this advertising campaing. Please click this card."
                         ></Card>

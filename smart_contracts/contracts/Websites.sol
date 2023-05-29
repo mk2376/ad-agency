@@ -34,6 +34,33 @@ contract Websites {
         return website;
     }
 
+    function getCountOfWebsitesForAddress(address addr) public view returns(uint256) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < id; i++) {
+            Website memory website = idToWebsite[i];
+            if (website.owner == addr) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    function getWebsitesForAddress(address addr) public view returns(Website[] memory) {
+        uint256 countOfWebsitesForAddress = getCountOfWebsitesForAddress(addr);
+        Website[] memory websites = new Website[](countOfWebsitesForAddress);
+
+        uint256 j = 0;
+        for(uint256 i = 0; i < id; i++) {
+            Website memory website = idToWebsite[i];
+            if (website.owner == addr) {
+                websites[j] = Website(website.owner, website.url, website.id);
+                j++;
+            }
+        }
+
+        return websites;
+    }
+
     function compareStrings(string memory a, string memory b) public view returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
 }

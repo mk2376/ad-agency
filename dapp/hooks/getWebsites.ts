@@ -40,6 +40,32 @@ export default function getWebsites() {
         return result;
     }
 
+    async function getWebsitesForAddress() {
+        const provider = ethers.providers.getDefaultProvider(ethEndpoint);
+
+        const smartContract = new ethers.Contract(
+            websiteContractAddress,
+            abi,
+            provider
+        );
+
+        const currProvider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await currProvider.listAccounts();
+        const addr = accounts[0];
+
+        const result = await smartContract.getWebsitesForAddress(addr);
+
+        const data = result.map((website: Website, index: number) => {
+            return website;
+        });
+
+        const websites = data
+            .map((item: Website) => new Website(item))
+            .reverse();
+
+        return websites;
+    }
+
     async function submitWebsite(url: string) {
         const web3Modal = new Web3Modal({
             cacheProvider: true,
@@ -66,5 +92,6 @@ export default function getWebsites() {
         websites: websites,
         submitWebsite: (url: string) => submitWebsite(url),
         getWebsiteWithId: (id: number) => getWebsiteWithId(id),
+        getWebsitesForAddress: () => getWebsitesForAddress(),
     };
 }

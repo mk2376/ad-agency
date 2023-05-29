@@ -10,11 +10,9 @@ if (window.ethereum) {
         console.error("User denied account access!");
     }
 } else if (window.web3) {
-    console.log("SECOND");
     // Legacy browsers
     web3Provider = window.web3.currentProvider;
 } else {
-    console.log("THIRD");
     // Use local client
     web3Provider = new Web3.providers.HttpProvider("http://localhost:7545");
 }
@@ -31,9 +29,9 @@ fetch("./../smart_contracts/build/contracts/Advertisements.json")
             .then((websiteJSON) => {
                 /* Contract Address */
                 const advertisementContractAddress =
-                    "0x9d6B8E8aBD13c39060e5990b2C2b2D972A6e0E59";
+                    "0x11765A9B10E49506217076ec3b93839Aa7d0789b";
                 const websiteContractAddress =
-                    "0x2d5168b8BDbACbCF6dC89e19431432D0cD57B2a8";
+                    "0x66652E59a7dDfBFF019f55aD8b8a3CA332B33aBB";
 
                 /* Advertisements Smart Contract */
                 const advertisementsContract = new web3.eth.Contract(

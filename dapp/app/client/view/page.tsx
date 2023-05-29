@@ -5,10 +5,22 @@ import Link from "next/link";
 import getAllAdvertisements from "@hooks/getAdvertisements";
 import { utils } from "ethers";
 import Advertisement from "@models/advertisement";
+import { useState, useEffect } from "react";
 
 const ClientAdView = () => {
     /* Smart Contract */
-    const { advertisements, submitAdvertisement } = getAllAdvertisements();
+    const { getAdvertisementsForAddress } = getAllAdvertisements();
+    const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+
+    const fetchAdvertisemenstForUser = async () => {
+        let ads = await getAdvertisementsForAddress();
+        console.log("My ads:", ads);
+        setAdvertisements(ads);
+    };
+
+    useEffect(() => {
+        fetchAdvertisemenstForUser();
+    }, []);
 
     const temp_ad: Advertisement = {
         owner: "owner",
@@ -49,7 +61,7 @@ const ClientAdView = () => {
                         return (
                             <Link
                                 key={`ad_link_${i}`}
-                                href={`/client/view/${parseInt(ad.id.hex)}`}
+                                href={`/client/view/${parseInt(ad.id._hex)}`}
                             >
                                 <div
                                     key={`ad_${i}`}
@@ -72,7 +84,7 @@ const ClientAdView = () => {
                                             className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                                         >
                                             Budget:{" "}
-                                            {parseInt(ad.budget.hex) *
+                                            {parseInt(ad.budget._hex) *
                                                 10 ** -18}{" "}
                                             ETH
                                         </h5>
