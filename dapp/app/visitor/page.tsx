@@ -29,7 +29,7 @@ const Visitor = () => {
 
             <div className="rounded-lg backdrop-blur-md bg-violet-950/50 m-20 w-min mb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                 <p className="p-12 text-5xl font-bold text-[#ba305e] visible hover:visible">
-                    {numberOfAdsWatched}
+                    {numberOfAdsWatched ? parseInt(numberOfAdsWatched._hex) : 0}
                 </p>
             </div>
         </div>

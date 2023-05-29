@@ -11,6 +11,9 @@ export default function Navbar() {
                 </Link>
             </div>
             <div className="flex space-x-8 text-xl">
+                <Link href="/connect">
+                    <p className="text-white hover:text-gray-200">Connect</p>
+                </Link>
                 <Link href="/client">
                     <p className="text-white hover:text-gray-200">Client</p>
                 </Link>
