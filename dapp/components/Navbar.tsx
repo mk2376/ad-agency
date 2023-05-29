@@ -10,7 +10,7 @@ export default function Navbar() {
                     </h1>
                 </Link>
             </div>
-            <div className="flex space-x-4">
+            <div className="flex space-x-8 text-xl">
                 <Link href="/client">
                     <p className="text-white hover:text-gray-200">Client</p>
                 </Link>
