@@ -34,6 +34,7 @@ const ClientAdView = () => {
         isAppropriate: false,
         visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
+        isClosed: false,
     };
 
     const temp_advertisements = [temp_ad, temp_ad, temp_ad];

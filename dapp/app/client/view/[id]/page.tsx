@@ -70,16 +70,20 @@ export default function Ad({ params }: { params: { id: string } }) {
     };
 
     const temp_ad: Advertisement = {
-        owner: "string",
-        budget: "any",
+        owner: "owner",
+        budget: {
+            hex: "0x4453656",
+        },
         ipfsHash: "string",
-        tag: "string",
-        id: "any",
+        tag: "random tag",
+        id: "34545",
         isChecked: true,
         isAppropriate: false,
         visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
+        isClosed: false,
     };
+
 
     //setAd(temp_ad)
 

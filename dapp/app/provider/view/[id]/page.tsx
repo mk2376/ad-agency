@@ -83,6 +83,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
         isAppropriate: false,
         visitors: ["34r545345", "r4tertzer", "rtgegtdhh"],
         websiteId: "any",
+        isClosed: false,
     };
 
     const temp_adsWithoutWebsite = [
