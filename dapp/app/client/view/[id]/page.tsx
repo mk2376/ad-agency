@@ -15,11 +15,10 @@ export default function Ad({ params }: { params: { id: string } }) {
 
     /* Smart Contract */
     const {
-        advertisements,
-        submitAdvertisement,
         getAdvertisementWithId,
         updateAdvertisementWithAIKnowledge,
         closeAdvertisementAndSplitTheRewards,
+        closeAdvertisementAndSplitTheRewardsWithoutWebsite,
     } = getAllAdvertisements();
 
     const { getWebsiteWithId } = getAllWebsites();
@@ -88,6 +87,8 @@ export default function Ad({ params }: { params: { id: string } }) {
         if (adID >= 0 && websiteID >= 0) {
             let website: Website = await getWebsiteWithId(websiteID);
             await closeAdvertisementAndSplitTheRewards(adID, website.owner);
+        } else if (adID >= 0) {
+            await closeAdvertisementAndSplitTheRewardsWithoutWebsite(adID);
         }
     };
 

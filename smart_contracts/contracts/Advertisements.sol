@@ -157,4 +157,19 @@ contract Advertisements {
         websiteOwner.transfer(rewardForWebsiteOwner);
         ad.owner.transfer(rewardForAdvertiser);
     }
+
+    function closeAdvertisementAndSplitTheRewardsWithoutWebsite(uint256 adID) public {
+        Advertisement storage ad = idToAdvertisement[adID];
+        require(msg.sender == ad.owner, "You are not the ad owner!");
+        ad.isClosed = true;
+        ad.websiteId = -1;
+        uint256 numberVisitors = ad.visitors.length + 1;
+        uint256 rewardPerVisitor = (ad.budget / 2) / numberVisitors;
+        uint256 rewardForAdvertiser = ad.budget / 2;
+        for (uint256 i = 0; i < ad.visitors.length; i++) {
+            address payable visitor = ad.visitors[i];
+            visitor.transfer(rewardPerVisitor);
+        }
+        ad.owner.transfer(rewardForAdvertiser);
+    }
 }

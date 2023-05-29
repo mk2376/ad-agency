@@ -119,13 +119,13 @@ const WebView = ({ params }: { params: { id: string } }) => {
                     Check which ads are shown to your viewers
                 </p>
                 {!currentAd && (
-                    <p className="mt-9 mb-4 text-2xl text-gray-800">
+                    <p className="mt-9 mb-4 text-2xl text-slate-100">
                         You are currently not displaying any advertisements on
                         this website!
                     </p>
                 )}
                 {currentAd && (
-                    <p className="mt-9 mb-4 text-2xl text-gray-800">
+                    <p className="mt-9 mb-4 text-2xl text-slate-100">
                         Currently displaying the following advertisement:
                     </p>
                 )}
@@ -155,7 +155,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
                 )}
 
                 {adsWithoutWebsite.length > 0 && (
-                    <p className="mt-9 mb-8 text-2xl text-gray-800">
+                    <p className="mt-9 mb-8 text-2xl text-slate-200">
                         Choose an advertisement to display on the website from
                         the list below:
                     </p>
@@ -164,12 +164,12 @@ const WebView = ({ params }: { params: { id: string } }) => {
                     <button
                         type="submit"
                         onClick={handlerUpdateWebsiteForAdvertisement}
-                        className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded text-left w-64"
+                        className="bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 px-4 mb-8 rounded w-64"
                     >
                         Display Advertisement
                     </button>
                 )}
-                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-black text-2xl">
+                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-slate-1 text-2xl">
                     {adsWithoutWebsite.length == 0 ? (
                         <div className="flex flex-col items-center m-16 gap-14">
                             <p className="mt-3 text-2xl">

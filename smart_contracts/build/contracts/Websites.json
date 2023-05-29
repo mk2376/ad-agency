@@ -10960,12 +10960,12 @@
     "1685367613165": {
       "events": {},
       "links": {},
-      "address": "0xbD93e0B784Fd2D59f978cd3d1C4bAdf3A3E71F21",
-      "transactionHash": "0x13c9b5973a7e50d00d10975a803652768274dd2e6f4f6d6b27cb903f227e6b5b"
+      "address": "0xC29592bD20Ce622c54Adb4a35775B0BBEfeb706A",
+      "transactionHash": "0x01d705ca035b53d41fa0d68c668289ea4b9d7f17bea127a38dd4888f1ab037c1"
     }
   },
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-05-29T13:41:32.229Z",
+  "updatedAt": "2023-05-29T13:50:55.544Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
