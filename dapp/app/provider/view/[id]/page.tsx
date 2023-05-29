@@ -77,7 +77,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
     ];
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+        <div className="flex flex-col items-center justify-center py-2">
             <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
                 {message.length > 0 && (
                     <div
@@ -92,20 +92,20 @@ const WebView = ({ params }: { params: { id: string } }) => {
                         </span>
                     </div>
                 )}
-                <p className="mt-3 text-2xl text-gray-500">
+                <p className="mt-3 text-2xl text-gray-150">
                     Website #{params.id}
                 </p>
 
-                <h1 className="text-6xl font-bold text-gray-950">
+                <h1 className="text-6xl font-bold text-white">
                     Track the ads displayed on your website
                 </h1>
 
-                <p className="mt-9 mb-4 text-2xl text-gray-800">
+                <p className="mt-9 mb-4 text-2xl text-gray-200">
                     Check which ads are shown to your viewers
                 </p>
 
                 {chosenAd && (
-                    <p className="mt-9 mb-8 text-2xl text-gray-800">
+                    <p className="mt-9 mb-8 text-2xl text-gray-200">
                         Currently chosen:{parseInt(chosenAd.id._hex)}
                     </p>
                 )}
@@ -119,7 +119,7 @@ const WebView = ({ params }: { params: { id: string } }) => {
                     </button>
                 )}
 
-                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-black text-2xl">
+                <div className="grid grid-flow-col md:grid-flow-row gap-4 text-white text-2xl">
                     {adsWithoutWebsite.length == 0 ? (
                         <div className="flex flex-col items-center m-16 gap-14">
                             <p className="mt-3 text-2xl">

@@ -18,9 +18,11 @@ export default function Home() {
                 technology.
             </p>
 
+            { /*
             <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-                {/* We will add more content here later */}
+                 We will add more content here later 
             </div>
+            */ }
         </div>
     );
 }

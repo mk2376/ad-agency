@@ -9,7 +9,7 @@ type CardType = {
 
 export default function Card({status, title, description}: CardType) {
     return (
-        <div className="block rounded-lg text-left bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+        <div className="block rounded-lg text-left backdrop-blur-md bg-white/80 p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] min-h-full">
             <div className='rounded-lg bg-slate-100 p-2 w-min mb-4'>
                 { status ?
                     <CheckBadgeIcon

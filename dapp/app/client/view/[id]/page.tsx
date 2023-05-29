@@ -81,7 +81,7 @@ export default function Ad({ params }: { params: { id: string } }) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+        <div className="flex flex-col items-center justify-center py-2">
             <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
                 {message.length > 0 && (
                     <div
@@ -96,15 +96,15 @@ export default function Ad({ params }: { params: { id: string } }) {
                         </span>
                     </div>
                 )}
-                <p className="mt-3 text-2xl text-gray-500">
+                <p className="mt-3 text-2xl text-gray-150">
                     Advertisement #{params.id}
                 </p>
 
-                <h1 className="text-6xl font-bold text-gray-950">
+                <h1 className="text-6xl font-bold text-white">
                     Track the status of your advertisement
                 </h1>
 
-                <p className="mt-9 mb-8 text-2xl text-gray-800">
+                <p className="mt-9 mb-8 text-2xl text-gray-200">
                     Check how your advertisement is progressing
                 </p>
                 {ad && !ad.isChecked && (
@@ -143,6 +143,7 @@ export default function Ad({ params }: { params: { id: string } }) {
                         description="Your advertisement is visible on the website. Check it out here."
                     ></Card>
                     <div
+                        className="m-0 p-0"
                         onClick={() =>
                             ad
                                 ? closeAdHandler(ad.id, ad.websiteId)
