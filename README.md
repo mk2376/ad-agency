@@ -31,25 +31,25 @@ IPFS allows users to store, share, and access files and data in a decentralized 
 
 TensorFlow is an open-source software library developed by Google for numerical computation and machine learning. It is designed to enable developers to build and train deep learning models quickly and easily, using a high-level API that abstracts away many of the lower-level details of neural network programming. Follow the quickstart guide [here](https://github.com/tensorflow/tensorflow#install).
 
-## AI Model
+## AI Model (Development: Žan, Integration: Žan)
 
 The source code and documentation model is available in **ai_model** folder.
 
 Click [here](ai_model/README.md) to read more about the AI model.
 
-## Decentralized application
+## Decentralized application (GUI Development: Miha, Integration: Žan + Miha)
 
 The source code for the decentralized application is available in the **dapp** folder.
 
 Click [here](dapp/README.md) to read more about the decentralized application.
 
-## Smart contracts
+## Smart contracts (Development: Žan, Integration: Žan + Miha)
 
 The source code for smart contracts is available in the **smart_contracts** folder.
 
 Click [here](smart_contracts/README.md) to read more about the smart contracts.
 
-## Client scripts
+## Client scripts (Development: Žan, Integration: Žan)
 
 The source code for the client side Javascript needed for displaying advertisements is available in the **client_script** folder.
 
